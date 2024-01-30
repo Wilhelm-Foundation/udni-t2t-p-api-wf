@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - db:/data/db
+  app:
+    build: .
+    restart: ${DOCKER_RESTART_MODE:-unless-stopped}
+    links:
+      - 'mongo:mongo'
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: ${NODE_ENV:-production}
+      DATABASE_URL: ${DATABASE_URL}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+    command: 'node /app/dist/index.js'
+
+volumes:
+  db:
+
+
