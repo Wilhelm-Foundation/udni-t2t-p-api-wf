@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   app:
-    image: tip2toe.azurecr.io/tip2toe-api:latest
+    image: tip2toe.azurecr.io/tip2toe-p-api:latest
     build: .
     restart: ${DOCKER_RESTART_MODE:-unless-stopped}
     ports:
@@ -11,8 +11,8 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV:-production}
       DATABASE_URL: mongodb://mongo/mongodb
-      ALLOWED_ORIGIN: https://tip2toe.azurewebsites.net
-      API_URL: https://tip2toeapi.azurewebsites.net
+      ALLOWED_ORIGIN: https://tip2toepatient.azurewebsites.net
+      API_URL: https://tip2toepatientapi.azurewebsites.net
     command: "node /app/dist/index.js"
   mongo:
     image: mongo
